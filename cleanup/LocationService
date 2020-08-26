@@ -1,0 +1,128 @@
+{
+	"info": {
+		"_postman_id": "b16d4656-2de1-4a94-a8f0-fb58f5eff66f",
+		"name": "Location",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "TC152 - Execute Store Location service health check",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "37dd1039-c282-490f-853e-5f2a7f2cbd90",
+						"exec": [
+							"//Expected result:",
+							"//\"message\": \"Location service is up and running.\",",
+							"//\"version\": \"1.3.1.1005\",",
+							"//\"buildDate\": \"2020-02-12T10:54:21.471Z\"",
+							"",
+							"//status check",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"",
+							"//response fields",
+							"pm.test(\"Verify Response includes a Message\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"message\");",
+							"});",
+							"",
+							"pm.test(\"Verify Response includes a Version\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"version\");",
+							"});",
+							"",
+							"pm.test(\"Verify Response includes a Build Date\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"buildDate\");",
+							"});",
+							"",
+							"//response results",
+							"",
+							"pm.test(\"Verify Message is 'Location service is up and running.'\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.message).to.eql(\"Location service is up and running.\");",
+							"});",
+							"",
+							"pm.test(\"Verify Version is 1.3.1.1005\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.version).to.eql(\"1.3.1.1005\");",
+							"});",
+							"",
+							"pm.test(\"Verify Build Date is 2020-02-12T10:54:21.471Z\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.buildDate).to.eql(\"2020-02-12T10:54:21.471Z\");",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url location}}",
+					"host": [
+						"{{url location}}"
+					]
+				},
+				"description": "Execute Location service health check\n\nExpected result\nYou should be able to see a JSON like the following:\n\n{\n\"message\": \"Location service is up and running.\",\n\"version\": \"1.3.1.1005\",\n\"buildDate\": \"2020-02-12T10:54:21.471Z\"\n}"
+			},
+			"response": []
+		},
+		{
+			"name": "TC153 - Look Up Store Location by ID",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url location}}/locations/\"Store Location ID\"",
+					"host": [
+						"{{url location}}"
+					],
+					"path": [
+						"locations",
+						"\"Store Location ID\""
+					]
+				},
+				"description": "Description\r\nLook Up Location by ID"
+			},
+			"response": []
+		},
+		{
+			"name": "TC154 - Look Up all Stores Locations",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url location}}/locations",
+					"host": [
+						"{{url location}}"
+					],
+					"path": [
+						"locations"
+					]
+				},
+				"description": "Description\r\nLook Up all Locations\r\n\r\nExpected result\r\nYou should be able to get a JSON like the following, with all the stores location.\r\n\r\n{\r\n\"success\": true,\r\n\"messages\": [],\r\n\"payload\": [\r\n{\r\n\"objectid\": 1,\r\n\"ezid\": \"00000\",\r\n\"region\": 120001,\r\n\"area\": 121001,\r\n\"territory\": 228008,\r\n\"state\": 129044,\r\n\"status\": 270001,\r\n\"locationType\": \"ST\",\r\n\"locationName\": null,\r\n\"streetName\": null,\r\n\"streetNumber\": null,\r\n\"phone\": null,\r\n\"receiptLocationName\": null,\r\n\"zip\": null,\r\n\"timezone\": null,\r\n\"daylightSavingsTime\": null,\r\n\"stateAlternateText\": null,\r\n\"stateAlternateTextMX\": null,\r\n\"timezoneAlternateText\": null,\r\n\"daylightSavingsTimeDisplayText\": null,\r\n\"fccStoreId\": null,\r\n\"fccTerminalId\": null,\r\n\"city\": null\r\n},\r\n{\r\n\"objectid\": 2435302,\r\n\"ezid\": \"00131\",\r\n\"region\": null,\r\n\"area\": null,\r\n\"territory\": null,\r\n\"state\": 129044,\r\n\"status\": 270001,\r\n\"locationType\": \"ST\",\r\n\"locationName\": null,\r\n\"streetName\": null,\r\n\"streetNumber\": null,\r\n\"phone\": null,\r\n\"receiptLocationName\": null,\r\n\"zip\": null,\r\n\"timezone\": null,\r\n\"daylightSavingsTime\": null,\r\n\"stateAlternateText\": null,\r\n\"stateAlternateTextMX\": null,\r\n\"timezoneAlternateText\": null,\r\n\"daylightSavingsTimeDisplayText\": null,\r\n\"fccStoreId\": null,\r\n\"fccTerminalId\": null,\r\n\"city\": null\r\n}\r\n}"
+			},
+			"response": []
+		},
+		{
+			"name": "TC155 - Look Up Location by ID #2",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": ""
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}

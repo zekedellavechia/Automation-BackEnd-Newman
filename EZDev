@@ -1,0 +1,29 @@
+{
+	"id": "01c93c79-80e0-4804-a05f-a32bf6053c53",
+	"name": "EZ Dev",
+	"values": [
+		{
+			"key": "url inventory",
+			"value": "https://mpos-inventory.dev.ezcorp.com",
+			"enabled": true
+		},
+		{
+			"key": "url employee",
+			"value": "https://mpos-employee.dev.ezcorp.com",
+			"enabled": true
+		},
+		{
+			"key": "url location",
+			"value": "https://mpos-location.dev.ezcorp.com",
+			"enabled": true
+		},
+		{
+			"key": "url customer",
+			"value": "https://mpos-customer.dev.ezcorp.com",
+			"enabled": true
+		}
+	],
+	"_postman_variable_scope": "environment",
+	"_postman_exported_at": "2020-04-23T23:18:54.048Z",
+	"_postman_exported_using": "Postman/7.22.1"
+}

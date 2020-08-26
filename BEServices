@@ -1,0 +1,1240 @@
+{
+	"info": {
+		"_postman_id": "f1b2e3c1-8e23-4587-b548-362a41f1eaa8",
+		"name": "BE Services",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Customer Service",
+			"item": [
+				{
+					"name": "TC166 - Execute Customers service Health Check TEST",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "9d291483-f80f-4b77-99b1-1aa75d067dbe",
+								"exec": [
+									"//Expected result:",
+									"//{",
+									"//    \"message\": \"Customer service is up and running.\",",
+									"//    \"version\": \"1.4.0.1014-SNAPSHOT\",",
+									"//    \"buildDate\": \"2020-04-21T21:02:53.255Z\"",
+									"//}",
+									"",
+									"//status check",
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"",
+									"//response fields",
+									"pm.test(\"Verify Response includes a Message\", function () {",
+									"    pm.expect(pm.response.text()).to.include(\"message\");",
+									"});",
+									"",
+									"pm.test(\"Verify Response includes a Version\", function () {",
+									"    pm.expect(pm.response.text()).to.include(\"version\");",
+									"});",
+									"",
+									"pm.test(\"Verify Response includes a Build Date\", function () {",
+									"    pm.expect(pm.response.text()).to.include(\"buildDate\");",
+									"});",
+									"",
+									"//response results",
+									"",
+									"pm.test(\"Verify Message is 'Customer service is up and running'\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.message).to.eql(\"Customer service is up and running.\");",
+									"});",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url customer}}/",
+							"host": [
+								"{{url customer}}"
+							],
+							"path": [
+								""
+							]
+						},
+						"description": "Execute Customers service Health Check\n\nExpected result\n{\n\"message\": \"Customer service is up and running.\",\n\"version\": \"1.3.1.1015-SNAPSHOT\",\n\"buildDate\": \"2020-03-10T10:42:36.630Z\"\n}"
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Employee Service",
+			"item": [
+				{
+					"name": "TC137 - Execute Employee service Health Check",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "98009b75-e43e-4413-8775-25182ff62616",
+								"exec": [
+									"pm.test(\"Verify Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"pm.test(\"Verify Customer service is up and running.\", function () {",
+									"    pm.expect(pm.response.text()).to.include(\"Customer service is up and running.\");",
+									"});",
+									"",
+									"",
+									"//pm.test(\"version is showing up\", function () {",
+									"//    pm.expect(pm.response.text()).to.include(\"version\");",
+									"//});",
+									"//pm.test(\"builDate is showing up\", function () {",
+									"//    pm.expect(pm.response.text()).to.include(\"buildDate\");",
+									"//});",
+									"",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {}
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url customer}}",
+							"host": [
+								"{{url customer}}"
+							]
+						},
+						"description": "Execute Employee service Health Check\r\n\r\nExpected result\r\n{\r\n\"message\": \"Employee service is up and running.\",\r\n\"version\": \"1.3.2.1007\",\r\n\"buildDate\": \"2020-02-17T17:51:51.294Z\"\r\n}"
+					},
+					"response": []
+				},
+				{
+					"name": "TC138 - Execute Employee Login step1 (Employee Found & Active)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "8b803b35-c18e-4c12-baf3-33f7a925c2dd",
+								"exec": [
+									"pm.test(\"Verify Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Verify Success value is True\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.success).to.eql(true);",
+									"});",
+									"",
+									"pm.test(\"Verify No Message is displayed\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.message).to.eql();",
+									"});",
+									"",
+									"",
+									"pm.test(\"Verify Payload values are correct\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.payload).to.eql( {",
+									"        \"businessRules\": null,",
+									"        \"layawayRules\": null,",
+									"        \"firstName\": \"Aravind\",",
+									"        \"lastName\": \"lname_MYS\"",
+									"    });",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "application-name",
+								"value": "EZRoam",
+								"type": "text"
+							},
+							{
+								"key": "application-component",
+								"value": "login",
+								"type": "text"
+							},
+							{
+								"key": "lang",
+								"value": "en_US",
+								"type": "text"
+							},
+							{
+								"key": "api-key",
+								"value": "999999999",
+								"type": "text"
+							},
+							{
+								"key": "employee-ezid",
+								"value": "300011113",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url employee}}/employees/login",
+							"host": [
+								"{{url employee}}"
+							],
+							"path": [
+								"employees",
+								"login"
+							]
+						},
+						"description": "Execute Employee Login step1 (Employee Found & Active)\r\n\r\n\r\nExpected result\r\n{\r\n\"success\": true,\r\n\"messages\": [],\r\n\"payload\": {\r\n\"businessRules\": null,\r\n\"layawayRules\": null,\r\n\"firstName\": \"Aravind\",\r\n\"lastName\": \"lname_MYS\"\r\n}\r\n}"
+					},
+					"response": []
+				},
+				{
+					"name": "TC139 - Execute Employee Login step2 (Authenticate)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "47dafccd-5fb0-4964-9168-f40612ff6847",
+								"exec": [
+									"pm.test(\"Verify Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"var jsonData = pm.response.json(); ",
+									"pm.test(\"Verify success is true\", function () { ",
+									"pm.expect(jsonData.success).to.eql(true); ",
+									"    });",
+									"",
+									"pm.test(\"Verify no message is displayed\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.message).to.eql();",
+									"});",
+									"",
+									"//este es el value del payload que actualmente viene distinto en el body:",
+									"",
+									"pm.test(\"Verify Payload Values\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.payload).to.eql({",
+									"\"businessRules\": {",
+									"\"ppp\": {",
+									"\"isPppStore\": true,",
+									"\"isPppTaxable\": true",
+									"},",
+									"\"taxes\": 0.0825",
+									"},",
+									"\"layawayRules\": {",
+									"\"isFeeTaxable\": true,",
+									"\"dueDate\": null,",
+									"\"downPaymentRules\": [",
+									"{",
+									"\"percentage\": 0.1,",
+									"\"defaultValue\": true",
+									"},",
+									"{",
+									"\"percentage\": 0.15,",
+									"\"defaultValue\": false",
+									"},",
+									"{",
+									"\"percentage\": 0.2,",
+									"\"defaultValue\": false",
+									"},",
+									"{",
+									"\"percentage\": 0.25,",
+									"\"defaultValue\": false",
+									"}",
+									"],",
+									"\"layawayPaymentRules\": [",
+									"{",
+									"\"layaway\": 1182,",
+									"\"paymentRules\": [",
+									"{",
+									"\"objectId\": 2167169,",
+									"\"elementType\": \"LP\",",
+									"\"action\": null,",
+									"\"lowAmount\": 0.0,",
+									"\"minimumDownPaymentRate\": 0.1,",
+									"\"numberOfPayments\": 3,",
+									"\"totalDays\": 90,",
+									"\"initialFee\": 5.0,",
+									"\"restockFeePercent\": 10.0",
+									"},",
+									"{",
+									"\"objectId\": 2162312,",
+									"\"elementType\": \"LP\",",
+									"\"action\": null,",
+									"\"lowAmount\": 250.0,",
+									"\"minimumDownPaymentRate\": 0.1,",
+									"\"numberOfPayments\": 4,",
+									"\"totalDays\": 120,",
+									"\"initialFee\": 5.0,",
+									"\"restockFeePercent\": 10.0",
+									"},",
+									"{",
+									"\"objectId\": 2165791,",
+									"\"elementType\": \"LP\",",
+									"\"action\": null,",
+									"\"lowAmount\": 100.0,",
+									"\"minimumDownPaymentRate\": 0.1,",
+									"\"numberOfPayments\": 3,",
+									"\"totalDays\": 90,",
+									"\"initialFee\": 5.0,",
+									"\"restockFeePercent\": 10.0",
+									"},",
+									"{",
+									"\"objectId\": 2162006,",
+									"\"elementType\": \"LP\",",
+									"\"action\": null,",
+									"\"lowAmount\": 1500.0,",
+									"\"minimumDownPaymentRate\": 0.1,",
+									"\"numberOfPayments\": 6,",
+									"\"totalDays\": 180,",
+									"\"initialFee\": 5.0,",
+									"\"restockFeePercent\": 10.0",
+									"},",
+									"{",
+									"\"objectId\": 2157208,",
+									"\"elementType\": \"LP\",",
+									"\"action\": null,",
+									"\"lowAmount\": 500.0,",
+									"\"minimumDownPaymentRate\": 0.1,",
+									"\"numberOfPayments\": 5,",
+									"\"totalDays\": 150,",
+									"\"initialFee\": 5.0,",
+									"\"restockFeePercent\": 10.0",
+									"}",
+									"]",
+									"}",
+									"],",
+									"\"isLayawayEnabled\": true,",
+									"\"numberOfPayments\": null",
+									"},",
+									"\"firstName\": \"Aravind\",",
+									"\"lastName\": \"lname_MYS\",",
+									"\"devicesInfo\": [",
+									"{",
+									"\"name\": \"Printer\",",
+									"\"model\": \"Epson TM-T88VI\",",
+									"\"type\": \"PRINTER\",",
+									"\"ipAddress\": \"192.168.43.243\"",
+									"},",
+									"{",
+									"\"name\": \"Card Reader\",",
+									"\"model\": \"Ingenico\",",
+									"\"type\": \"CARD_READER\",",
+									"\"ipAddress\": \"172.31.24.126:12000\"",
+									"}",
+									"],",
+									"\"freedomPayInfo\": {",
+									"\"freewayServiceUrl\": \"https://cs.uat.freedompay.com/fasta/\",",
+									"\"esKey\": \"D9H9YM8DD8W7FV6WB3D9KPF9JY98QQ6B\",",
+									"\"terminalId\": \"2478473013\",",
+									"\"storeId\": \"1470752013\"",
+									"}",
+									"}",
+									");",
+									"});",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "employee-ezid",
+								"value": " 300011113",
+								"type": "text"
+							},
+							{
+								"key": "lang",
+								"value": " en_US",
+								"type": "text"
+							},
+							{
+								"key": "application-name",
+								"value": " EZRoam",
+								"type": "text"
+							},
+							{
+								"key": "application-component",
+								"value": " login",
+								"type": "text"
+							},
+							{
+								"key": "api-key",
+								"value": " 123",
+								"type": "text"
+							},
+							{
+								"key": "employee-objectid",
+								"value": " 12548403",
+								"type": "text"
+							},
+							{
+								"key": "ip-address",
+								"value": " 175.35.90.80",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": " application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\"password\": \"ezcorp\"\r\n}"
+						},
+						"url": {
+							"raw": "{{url employee}}/employees/authenticate",
+							"host": [
+								"{{url employee}}"
+							],
+							"path": [
+								"employees",
+								"authenticate"
+							]
+						},
+						"description": "Execute Employee Login step2 (Authenticate)\r\n\r\nExpected result:\r\n\r\n{\r\n\"success\": true,\r\n\"messages\": [],\r\n\"payload\": {\r\n\"businessRules\": {\r\n\"ppp\": {\r\n\"isPppStore\": true,\r\n\"isPppTaxable\": true\r\n},\r\n\"taxes\": 0.0825\r\n},\r\n\"layawayRules\": {\r\n\"isFeeTaxable\": true,\r\n\"dueDate\": null,\r\n\"downPaymentRules\": [\r\n{\r\n\"percentage\": 0.1,\r\n\"defaultValue\": true\r\n},\r\n{\r\n\"percentage\": 0.15,\r\n\"defaultValue\": false\r\n},\r\n{\r\n\"percentage\": 0.2,\r\n\"defaultValue\": false\r\n},\r\n{\r\n\"percentage\": 0.25,\r\n\"defaultValue\": false\r\n}\r\n],\r\n\"layawayPaymentRules\": [\r\n{\r\n\"layaway\": 1182,\r\n\"paymentRules\": [\r\n{\r\n\"objectId\": 2167169,\r\n\"elementType\": \"LP\",\r\n\"action\": null,\r\n\"lowAmount\": 0.0,\r\n\"minimumDownPaymentRate\": 0.1,\r\n\"numberOfPayments\": 3,\r\n\"totalDays\": 90,\r\n\"initialFee\": 5.0,\r\n\"restockFeePercent\": 10.0\r\n},\r\n{\r\n\"objectId\": 2162312,\r\n\"elementType\": \"LP\",\r\n\"action\": null,\r\n\"lowAmount\": 250.0,\r\n\"minimumDownPaymentRate\": 0.1,\r\n\"numberOfPayments\": 4,\r\n\"totalDays\": 120,\r\n\"initialFee\": 5.0,\r\n\"restockFeePercent\": 10.0\r\n},\r\n{\r\n\"objectId\": 2165791,\r\n\"elementType\": \"LP\",\r\n\"action\": null,\r\n\"lowAmount\": 100.0,\r\n\"minimumDownPaymentRate\": 0.1,\r\n\"numberOfPayments\": 3,\r\n\"totalDays\": 90,\r\n\"initialFee\": 5.0,\r\n\"restockFeePercent\": 10.0\r\n},\r\n{\r\n\"objectId\": 2162006,\r\n\"elementType\": \"LP\",\r\n\"action\": null,\r\n\"lowAmount\": 1500.0,\r\n\"minimumDownPaymentRate\": 0.1,\r\n\"numberOfPayments\": 6,\r\n\"totalDays\": 180,\r\n\"initialFee\": 5.0,\r\n\"restockFeePercent\": 10.0\r\n},\r\n{\r\n\"objectId\": 2157208,\r\n\"elementType\": \"LP\",\r\n\"action\": null,\r\n\"lowAmount\": 500.0,\r\n\"minimumDownPaymentRate\": 0.1,\r\n\"numberOfPayments\": 5,\r\n\"totalDays\": 150,\r\n\"initialFee\": 5.0,\r\n\"restockFeePercent\": 10.0\r\n}\r\n]\r\n}\r\n],\r\n\"isLayawayEnabled\": true,\r\n\"numberOfPayments\": null\r\n},\r\n\"firstName\": \"Aravind\",\r\n\"lastName\": \"lname_MYS\",\r\n\"devicesInfo\": [\r\n{\r\n\"name\": \"Printer\",\r\n\"model\": \"Epson TM-T88VI\",\r\n\"type\": \"PRINTER\",\r\n\"ipAddress\": \"192.168.43.243\"\r\n},\r\n{\r\n\"name\": \"Card Reader\",\r\n\"model\": \"Ingenico\",\r\n\"type\": \"CARD_READER\",\r\n\"ipAddress\": \"172.31.24.126:12000\"\r\n}\r\n],\r\n\"freedomPayInfo\": {\r\n\"freewayServiceUrl\": \"https://cs.uat.freedompay.com/fasta/\",\r\n\"esKey\": \"D9H9YM8DD8W7FV6WB3D9KPF9JY98QQ6B\",\r\n\"terminalId\": \"2478473013\",\r\n\"storeId\": \"1470752013\"\r\n}\r\n}\r\n}"
+					},
+					"response": []
+				},
+				{
+					"name": "TC140 - Look up location by ID",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "14b1e68a-586e-401e-805a-0f07a42697c1",
+								"exec": [
+									"pm.test(\"Verify Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Verify Success value is True\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.success).to.eql(true);",
+									"});",
+									"",
+									"pm.test(\"Verify No Message is displayed\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.message).to.eql();",
+									"});",
+									"",
+									"",
+									"pm.test(\"Verify Payload values are correct\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.payload).to.eql( {",
+									"        \"objectid\": 133,",
+									"        \"ezid\": \"01134\",",
+									"        \"region\": 120003,",
+									"        \"area\": 125009,",
+									"        \"territory\": 228009,",
+									"        \"state\": 129044,",
+									"        \"status\": 270001,",
+									"        \"locationType\": \"ST\",",
+									"        \"locationName\": \"EZPAWN #10417\",",
+									"        \"streetName\": \"W. Hidalgo\",",
+									"        \"streetNumber\": \"386\",",
+									"        \"phone\": \"(956)689-6402\",",
+									"        \"receiptLocationName\": \"EZPAWN\",",
+									"        \"zip\": \"78580\",",
+									"        \"timezone\": 204003,",
+									"        \"daylightSavingsTime\": 206002,",
+									"        \"stateAlternateText\": \"TX\",",
+									"        \"stateAlternateTextMX\": \"TX\",",
+									"        \"timezoneAlternateText\": \"CST\",",
+									"        \"daylightSavingsTimeDisplayText\": \"1 Hour\",",
+									"        \"fccStoreId\": \"1525252000\",",
+									"        \"fccTerminalId\": \"2530231005\",",
+									"        \"city\": \"Raymondville\"",
+									"    });",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url location}}/locations/00133",
+							"host": [
+								"{{url location}}"
+							],
+							"path": [
+								"locations",
+								"00133"
+							]
+						},
+						"description": "Look up location by ID\r\n\r\nExpected result\r\n{\r\n\"success\": true,\r\n\"messages\": [],\r\n\"payload\": {\r\n\"objectid\": 133,\r\n\"ezid\": \"01134\",\r\n\"region\": 120003,\r\n\"area\": 125009,\r\n\"territory\": 228009,\r\n\"state\": 129044,\r\n\"status\": 270001,\r\n\"locationType\": \"ST\",\r\n\"locationName\": \"EZPAWN #10417\",\r\n\"streetName\": \"W. Hidalgo\",\r\n\"streetNumber\": \"386\",\r\n\"phone\": \"(956)689-6402\",\r\n\"receiptLocationName\": \"EZPAWN\",\r\n\"zip\": \"78580\",\r\n\"timezone\": 204003,\r\n\"daylightSavingsTime\": 206002,\r\n\"stateAlternateText\": \"TX\",\r\n\"stateAlternateTextMX\": \"TX\",\r\n\"timezoneAlternateText\": \"CST\",\r\n\"daylightSavingsTimeDisplayText\": \"1 Hour\",\r\n\"fccStoreId\": \"16114715007\",\r\n\"fccTerminalId\": \"26147842001\",\r\n\"city\": \"Raymondville\"\r\n}\r\n}"
+					},
+					"response": []
+				},
+				{
+					"name": "TC156 - Attempt to Execute Employee Login step2 (Authenticate) with incorrect password",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "fa550df0-5e7d-4e2b-8edb-783689f4143f",
+								"exec": [
+									"pm.test(\"Verify Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Verify Success value is False\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.success).to.eql(false);",
+									"});",
+									"",
+									"pm.test(\"Verify Correct Message is displayed\", function () {",
+									"    var jsonData = pm.response.json();",
+									"//the actual result is commented",
+									"//    pm.expect(jsonData.messages).to.eql([",
+									"//        \"Account locked. Reset password in EZSYSTEM.\"",
+									"//    ]);",
+									" pm.expect(jsonData.messages).to.eql( [",
+									"\"Incorrect password\"",
+									"]);",
+									"});",
+									"",
+									"",
+									"pm.test(\"Verify Payload values is null\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.payload).to.eql(null);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "employee-ezid",
+								"value": " 300011113",
+								"type": "text"
+							},
+							{
+								"key": "lang",
+								"value": " en_US",
+								"type": "text"
+							},
+							{
+								"key": "application-name",
+								"value": " EZRoam",
+								"type": "text"
+							},
+							{
+								"key": "application-component",
+								"value": " login",
+								"type": "text"
+							},
+							{
+								"key": "api-key",
+								"value": " 123",
+								"type": "text"
+							},
+							{
+								"key": "employee-objectid",
+								"value": " 12548403",
+								"type": "text"
+							},
+							{
+								"key": "ip-address",
+								"value": " 175.35.90.80",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": " application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\"password\": \"incorrect\"\r\n}"
+						},
+						"url": {
+							"raw": "{{url employee}}/employees/authenticate",
+							"host": [
+								"{{url employee}}"
+							],
+							"path": [
+								"employees",
+								"authenticate"
+							]
+						},
+						"description": "Attempt to Execute Employee Login step2 (Authenticate) with incorrect password\r\n\r\nExpected result\r\n{\r\n\"success\": false,\r\n\"messages\": [\r\n\"Incorrect password\"\r\n],\r\n\"payload\": null\r\n}"
+					},
+					"response": []
+				},
+				{
+					"name": "TC157 - Attempt to Execute Employee Login step2 (Authenticate) with incorrect employee-ezid",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "669acc9e-aae4-4ae8-83ae-66661c7e805a",
+								"exec": [
+									"pm.test(\"Verify Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Verify Success value is False\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.success).to.eql(false);",
+									"});",
+									"",
+									"pm.test(\"Verify Correct Message is displayed\", function () {",
+									"    var jsonData = pm.response.json();",
+									"pm.expect(jsonData.messages).to.eql( [",
+									"\"Employee not found\"",
+									"]);",
+									"});",
+									"",
+									"",
+									"pm.test(\"Verify Payload values is null\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.payload).to.eql(null);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "employee-ezid",
+								"value": "000000003",
+								"type": "text"
+							},
+							{
+								"key": "lang",
+								"value": "en_US",
+								"type": "text"
+							},
+							{
+								"key": "application-name",
+								"value": "EZRoam",
+								"type": "text"
+							},
+							{
+								"key": "application-component",
+								"value": "login",
+								"type": "text"
+							},
+							{
+								"key": "api-key",
+								"value": "123",
+								"type": "text"
+							},
+							{
+								"key": "employee-objectid",
+								"value": "12548403",
+								"type": "text"
+							},
+							{
+								"key": "ip-address",
+								"value": "172.24.101.6",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\"password\": \"ezcorp\"\r\n}"
+						},
+						"url": {
+							"raw": "{{url employee}}/employees/authenticate",
+							"host": [
+								"{{url employee}}"
+							],
+							"path": [
+								"employees",
+								"authenticate"
+							]
+						},
+						"description": "Attempt to Execute Employee Login step2 (Authenticate) with incorrect employee-ezid\r\n\r\nExpected result\r\n{\r\n\"success\": false,\r\n\"messages\": [\r\n\"Employee not found\"\r\n],\r\n\"payload\": null\r\n}"
+					},
+					"response": []
+				},
+				{
+					"name": "TC158 - Attempt to execute Employee Login step1 (Employee Found & Active) with incorrect employee-ezid",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "0f5173e6-1d46-45e5-8840-db15b4ef5b29",
+								"exec": [
+									"pm.test(\"Verify Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Verify Success value is False\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.success).to.eql(false);",
+									"});",
+									"",
+									"pm.test(\"Verify Correct Message is displayed\", function () {",
+									"    var jsonData = pm.response.json();",
+									"pm.expect(jsonData.messages).to.eql( [",
+									"\"Employee not found\"",
+									"]);",
+									"});",
+									"",
+									"",
+									"pm.test(\"Verify Payload values is null\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.payload).to.eql(null);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "application-name",
+								"value": "EZRoam",
+								"type": "text"
+							},
+							{
+								"key": "application-component",
+								"value": "login",
+								"type": "text"
+							},
+							{
+								"key": "lang",
+								"value": "en_US",
+								"type": "text"
+							},
+							{
+								"key": "api-key",
+								"value": "999999999",
+								"type": "text"
+							},
+							{
+								"key": "employee-ezid",
+								"value": "000000000",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url employee}}/employees/login",
+							"host": [
+								"{{url employee}}"
+							],
+							"path": [
+								"employees",
+								"login"
+							]
+						},
+						"description": "Attempt to execute Employee Login step1 (Employee Found & Active) with incorrect employee-ezid\r\n\r\nExpected result\r\n{\r\n\"success\": false,\r\n\"messages\": [\r\n\"Employee not found\"\r\n],\r\n\"payload\": null\r\n}"
+					},
+					"response": []
+				},
+				{
+					"name": "TC159 - Attempt to Execute Employee Login step2 (Authenticate) with incorrect ip-address",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "d7d911b2-f7ea-4404-be1c-7e2b1a64d8e6",
+								"exec": [
+									"pm.test(\"Verify Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Verify Success value is False\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.success).to.eql(false);",
+									"});",
+									"",
+									"pm.test(\"Verify Correct Messages are displayed\", function () {",
+									"    var jsonData = pm.response.json();",
+									"pm.expect(jsonData.messages).to.eql( [",
+									"\"Store with ip address 0.0.0.0 cannot be found. Call the Service Desk at 1-866-963-1230 for assistance.\"",
+									"]);",
+									"});",
+									"//actual message:  \"Account locked. Reset password in EZSYSTEM.\"",
+									"",
+									"pm.test(\"Verify Payload values is null\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.payload).to.eql(null);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "employee-ezid",
+								"value": " 300011113",
+								"type": "text"
+							},
+							{
+								"key": "lang",
+								"value": " en_US",
+								"type": "text"
+							},
+							{
+								"key": "application-name",
+								"value": " EZRoam",
+								"type": "text"
+							},
+							{
+								"key": "application-component",
+								"value": " login",
+								"type": "text"
+							},
+							{
+								"key": "api-key",
+								"value": " 123",
+								"type": "text"
+							},
+							{
+								"key": "employee-objectid",
+								"value": " 12548403",
+								"type": "text"
+							},
+							{
+								"key": "ip-address",
+								"value": " 0.0.0.0",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": " application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\"password\": \"ezcorp\"\r\n}"
+						},
+						"url": {
+							"raw": "{{url employee}}/employees/authenticate",
+							"host": [
+								"{{url employee}}"
+							],
+							"path": [
+								"employees",
+								"authenticate"
+							]
+						},
+						"description": "Attempt to Execute Employee Login step2 (Authenticate) with incorrect ip-address\r\n\r\nExpected result\r\n{\r\n\"success\": false,\r\n\"messages\": [\r\n\"Store with ip address 0.0.0.0 cannot be found. Call the Service Desk at 1-866-963-1230 for assistance.\"\r\n],\r\n\"payload\": null\r\n}"
+					},
+					"response": []
+				},
+				{
+					"name": "TC160 - Attempt to Execute Employee Login step2 (Authenticate) with incorrect employee-objectid",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "a07658ec-f719-4602-92e7-b8fda751c98f",
+								"exec": [
+									"pm.test(\"Verify Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Verify Success value is False\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.success).to.eql(false);",
+									"});",
+									"",
+									"pm.test(\"Verify Correct Message is displayed\", function () {",
+									"    var jsonData = pm.response.json();",
+									"pm.expect(jsonData.messages).to.eql( [",
+									"\"Employee not found.\"",
+									"]);",
+									"});",
+									"//actual message:  \"Account locked. Reset password in EZSYSTEM.\"",
+									"",
+									"pm.test(\"Verify Payload values is null\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.payload).to.eql(null);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "employee-ezid",
+								"value": " 300011113",
+								"type": "text"
+							},
+							{
+								"key": "lang",
+								"value": " en_US",
+								"type": "text"
+							},
+							{
+								"key": "application-name",
+								"value": " EZRoam",
+								"type": "text"
+							},
+							{
+								"key": "application-component",
+								"value": " login",
+								"type": "text"
+							},
+							{
+								"key": "api-key",
+								"value": " 123",
+								"type": "text"
+							},
+							{
+								"key": "employee-objectid",
+								"value": " 00000000",
+								"type": "text"
+							},
+							{
+								"key": "ip-address",
+								"value": " 172.24.101.6",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": " application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\"password\": \"ezcorp\"\r\n}"
+						},
+						"url": {
+							"raw": "{{url employee}}/employees/authenticate",
+							"host": [
+								"{{url employee}}"
+							],
+							"path": [
+								"employees",
+								"authenticate"
+							]
+						},
+						"description": "Enter the following URL: {{url}}/employees/authenticate\r\n\r\nExpected result\r\n{\r\n\"success\": false,\r\n\"messages\": [\r\n\"Employee not found\"\r\n],\r\n\"payload\": null\r\n}"
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Location Service",
+			"item": [
+				{
+					"name": "TC152 - Execute Store Location service health check",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "ddb0e0c6-3d82-4b38-80ee-39c6f6cec9fe",
+								"exec": [
+									"//Expected result:",
+									"//\"message\": \"Location service is up and running.\",",
+									"//\"version\": \"1.3.1.1005\",",
+									"//\"buildDate\": \"2020-02-12T10:54:21.471Z\"",
+									"",
+									"//status check",
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"",
+									"//response fields",
+									"pm.test(\"Verify Response includes a Message\", function () {",
+									"    pm.expect(pm.response.text()).to.include(\"message\");",
+									"});",
+									"",
+									"pm.test(\"Verify Response includes a Version\", function () {",
+									"    pm.expect(pm.response.text()).to.include(\"version\");",
+									"});",
+									"",
+									"pm.test(\"Verify Response includes a Build Date\", function () {",
+									"    pm.expect(pm.response.text()).to.include(\"buildDate\");",
+									"});",
+									"",
+									"//response results",
+									"",
+									"pm.test(\"Verify Message is 'Location service is up and running.'\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.message).to.eql(\"Location service is up and running.\");",
+									"});",
+									"",
+									"//pm.test(\"Verify Version is 1.3.1.1005\", function () {",
+									"  //  var jsonData = pm.response.json();",
+									"    //pm.expect(jsonData.version).to.eql(\"1.3.1.1005\");",
+									"//});",
+									"",
+									"//pm.test(\"Verify Build Date is 2020-02-12T10:54:21.471Z\", function () {",
+									"    //var jsonData = pm.response.json();",
+									"    //pm.expect(jsonData.buildDate).to.eql/(\"2020-02-12T10:54:21.471Z\");",
+									"//});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {}
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url location}}",
+							"host": [
+								"{{url location}}"
+							]
+						},
+						"description": "Execute Location service health check\n\nExpected result\nYou should be able to see a JSON like the following:\n\n{\n\"message\": \"Location service is up and running.\",\n\"version\": \"1.3.1.1005\",\n\"buildDate\": \"2020-02-12T10:54:21.471Z\"\n}"
+					},
+					"response": []
+				},
+				{
+					"name": "TC153 - Look Up Store Location by ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url location}}/locations/\"Store Location ID\"",
+							"host": [
+								"{{url location}}"
+							],
+							"path": [
+								"locations",
+								"\"Store Location ID\""
+							]
+						},
+						"description": "Description\r\nLook Up Location by ID"
+					},
+					"response": []
+				},
+				{
+					"name": "TC154 - Look Up all Stores Locations",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url location}}/locations",
+							"host": [
+								"{{url location}}"
+							],
+							"path": [
+								"locations"
+							]
+						},
+						"description": "Description\r\nLook Up all Locations\r\n\r\nExpected result\r\nYou should be able to get a JSON like the following, with all the stores location.\r\n\r\n{\r\n\"success\": true,\r\n\"messages\": [],\r\n\"payload\": [\r\n{\r\n\"objectid\": 1,\r\n\"ezid\": \"00000\",\r\n\"region\": 120001,\r\n\"area\": 121001,\r\n\"territory\": 228008,\r\n\"state\": 129044,\r\n\"status\": 270001,\r\n\"locationType\": \"ST\",\r\n\"locationName\": null,\r\n\"streetName\": null,\r\n\"streetNumber\": null,\r\n\"phone\": null,\r\n\"receiptLocationName\": null,\r\n\"zip\": null,\r\n\"timezone\": null,\r\n\"daylightSavingsTime\": null,\r\n\"stateAlternateText\": null,\r\n\"stateAlternateTextMX\": null,\r\n\"timezoneAlternateText\": null,\r\n\"daylightSavingsTimeDisplayText\": null,\r\n\"fccStoreId\": null,\r\n\"fccTerminalId\": null,\r\n\"city\": null\r\n},\r\n{\r\n\"objectid\": 2435302,\r\n\"ezid\": \"00131\",\r\n\"region\": null,\r\n\"area\": null,\r\n\"territory\": null,\r\n\"state\": 129044,\r\n\"status\": 270001,\r\n\"locationType\": \"ST\",\r\n\"locationName\": null,\r\n\"streetName\": null,\r\n\"streetNumber\": null,\r\n\"phone\": null,\r\n\"receiptLocationName\": null,\r\n\"zip\": null,\r\n\"timezone\": null,\r\n\"daylightSavingsTime\": null,\r\n\"stateAlternateText\": null,\r\n\"stateAlternateTextMX\": null,\r\n\"timezoneAlternateText\": null,\r\n\"daylightSavingsTimeDisplayText\": null,\r\n\"fccStoreId\": null,\r\n\"fccTerminalId\": null,\r\n\"city\": null\r\n}\r\n}"
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Retail Service",
+			"item": [
+				{
+					"name": "Transaction Creation - Layaway",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "employee-objectid",
+								"type": "text",
+								"value": "39074402"
+							},
+							{
+								"key": "application-component",
+								"type": "text",
+								"value": "Retail"
+							},
+							{
+								"key": "application-name",
+								"type": "text",
+								"value": "EZRoam"
+							},
+							{
+								"key": "lang",
+								"type": "text",
+								"value": "es_MX"
+							},
+							{
+								"key": "location-objectid",
+								"type": "text",
+								"value": "1202"
+							},
+							{
+								"key": "location-ezid",
+								"type": "text",
+								"value": "01258"
+							},
+							{
+								"key": "ip-address",
+								"type": "text",
+								"value": "1.0.3.4"
+							},
+							{
+								"key": "api-key",
+								"type": "text",
+								"value": "99999999999"
+							},
+							{
+								"key": "employee-ezid",
+								"type": "text",
+								"value": "123450001"
+							},
+							{
+								"key": "apiKeyRetail",
+								"type": "text",
+								"value": "99999999999"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"saleAmount\": 2,\n    \"pppAmount\": 0,\n    \"taxAmount\": 0.55,\n    \"isPppTaxable\": false,\n    \"customer\": {\n        \"firstName\": \"Mike\",\n        \"lastName\": \"Tyson\",\n        \"phone\": \"(333)432-4949\",\n        \"email\": \"jcook@gmail.com\"\n    },\n    \"items\": [\n        {\n            \"itemEzid\": null,\n            \"soldPrice\": 2,\n            \"ppp\": null,\n            \"pppAmount\": 0,\n            \"pppExpDate\": null,\n            \"bulkCategory\": 694001,\n            \"bulkQuantity\": 1\n        }\n    ],\n    \"tenderIn\": [\n        {\n            \"tenderType\": \"CS\",\n            \"tenderAmount\": 10\n        }\n    ],\n    \"tenderOut\": [\n        {\n            \"tenderType\": \"CS\",\n            \"tenderAmount\": 4.8\n        }\n    ],\n    \"transactionType\": \"LAYAWAY\",\n    \"creditApproval\": null,\n    \"paymentServiceData\": null,\n    \"settled\": \"N\",\n    \"creditCardEntryMode\": null,\n    \"complianceCode\": null,\n    \"appLabel\": null,\n    \"pinVerified\": null,\n    \"fccCardEntry\": null,\n    \"fccAID\": null,\n    \"fccTVR\": null,\n    \"fccIAD\": null,\n    \"fccTSI\": null,\n    \"fccARC\": null,\n    \"creditCardNumber\": null,\n    \"cardType\": null,\n    \"creditCardExpDate\": null,\n    \"flag\": \"T\",\n    \"layawayPlan\": \"BASIC\",\n    \"layawayDownPayment\": 5.2,\n    \"transactionFeeWithTax\": 5,\n    \"transactionFeeBeforeTax\": 4.62,\n    \"layawaySchedulePlan\": [\n        {\n            \"scheduledAmount\": 0.66,\n            \"scheduledDate\": \"2020-04-17\"\n        },\n        {\n            \"scheduledAmount\": 0.66,\n            \"scheduledDate\": \"2020-05-17\"\n        },\n        {\n            \"scheduledAmount\": 0.65,\n            \"scheduledDate\": \"2020-06-16\"\n        }\n    ],\n    \"layaway\": 1182,\n    \"minimumDownPayment\": 1,\n    \"restockingFeeConfig\": {\n        \"feeMaxValue\": 0,\n        \"feeMinValue\": 10,\n        \"feePercent\": 10\n    }\n}"
+						},
+						"url": {
+							"raw": "{{retail-service}}/transactions/retail/",
+							"host": [
+								"{{retail-service}}"
+							],
+							"path": [
+								"transactions",
+								"retail",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Transaction Creation - Layaway False",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "employee-objectid",
+								"type": "text",
+								"value": "39074402"
+							},
+							{
+								"key": "application-component",
+								"type": "text",
+								"value": "Retail"
+							},
+							{
+								"key": "application-name",
+								"type": "text",
+								"value": "EZRoam"
+							},
+							{
+								"key": "lang",
+								"type": "text",
+								"value": "es_MX"
+							},
+							{
+								"key": "location-objectid",
+								"type": "text",
+								"value": "1202"
+							},
+							{
+								"key": "location-ezid",
+								"type": "text",
+								"value": "01258"
+							},
+							{
+								"key": "ip-address",
+								"type": "text",
+								"value": "1.0.3.4"
+							},
+							{
+								"key": "api-key",
+								"type": "text",
+								"value": "99999999999"
+							},
+							{
+								"key": "employee-ezid",
+								"type": "text",
+								"value": "123450001"
+							},
+							{
+								"key": "apiKeyRetail",
+								"type": "text",
+								"value": "99999999999"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"saleAmount\": 2,\n    \"pppAmount\": 0,\n    \"taxAmount\": 0.55,\n    \"isPppTaxable\": false,\n    \"customer\": {\n        \"firstName\": \"Mike\",\n        \"lastName\": \"Tyson\",\n        \"phone\": \"(333)432-4949\",\n        \"email\": \"jcook@gmail.com\"\n    },\n    \"items\": [\n        {\n            \"itemEzid\": null,\n            \"soldPrice\": 2,\n            \"ppp\": null,\n            \"pppAmount\": 0,\n            \"pppExpDate\": null,\n            \"bulkCategory\": 694001,\n            \"bulkQuantity\": 1\n        }\n    ],\n    \"tenderIn\": [\n        {\n            \"tenderType\": \"CS\",\n            \"tenderAmount\": 10\n        }\n    ],\n    \"tenderOut\": [\n        {\n            \"tenderType\": \"CS\",\n            \"tenderAmount\": 4.8\n        }\n    ],\n    \"transactionType\": \"LAYAWAY\",\n    \"creditApproval\": null,\n    \"paymentServiceData\": null,\n    \"settled\": \"N\",\n    \"creditCardEntryMode\": null,\n    \"complianceCode\": null,\n    \"appLabel\": null,\n    \"pinVerified\": null,\n    \"fccCardEntry\": null,\n    \"fccAID\": null,\n    \"fccTVR\": null,\n    \"fccIAD\": null,\n    \"fccTSI\": null,\n    \"fccARC\": null,\n    \"creditCardNumber\": null,\n    \"cardType\": null,\n    \"creditCardExpDate\": null,\n    \"flag\": \"T\",\n    \"layawayPlan\": \"BASIC\",\n    \"layawayDownPayment\": 5.2,\n    \"transactionFeeWithTax\": 5,\n    \"transactionFeeBeforeTax\": 4.62,\n    \"layawaySchedulePlan\": [\n        {\n            \"scheduledAmount\": 0.66,\n            \"scheduledDate\": \"2020-04-17\"\n        },\n        {\n            \"scheduledAmount\": 0.66,\n            \"scheduledDate\": \"2020-05-17\"\n        },\n        {\n            \"scheduledAmount\": 0.65,\n            \"scheduledDate\": \"2020-06-16\"\n        }\n    ],\n    \"layaway\": 1182,\n    \"minimumDownPayment\": 1,\n    \"restockingFeeConfig\": {\n        \"feeMaxValue\": 0,\n        \"feeMinValue\": 10,\n        \"feePercent\": 10\n    }\n}"
+						},
+						"url": {
+							"raw": "{{url retail}}/transactions/retail/",
+							"host": [
+								"{{url retail}}"
+							],
+							"path": [
+								"transactions",
+								"retail",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		}
+	],
+	"protocolProfileBehavior": {}
+}

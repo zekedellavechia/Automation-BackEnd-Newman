@@ -1,0 +1,82 @@
+{
+	"info": {
+		"_postman_id": "0ef0d0a6-9d64-4778-91ad-fd3d6b5ff9c9",
+		"name": "Customer Service",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "TC166 - Execute Customers service Health Check",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "40e6790a-e7ad-4c24-a6fa-364bf3c5683b",
+						"exec": [
+							"//Expected result:",
+							"//{",
+							"//    \"message\": \"Customer service is up and running.\",",
+							"//    \"version\": \"1.4.0.1014-SNAPSHOT\",",
+							"//    \"buildDate\": \"2020-04-21T21:02:53.255Z\"",
+							"//}",
+							"",
+							"//status check",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"",
+							"//response fields",
+							"pm.test(\"Verify Response includes a Message\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"message\");",
+							"});",
+							"",
+							"pm.test(\"Verify Response includes a Version\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"version\");",
+							"});",
+							"",
+							"pm.test(\"Verify Response includes a Build Date\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"buildDate\");",
+							"});",
+							"",
+							"//response results",
+							"",
+							"pm.test(\"Verify Message is 'Customer service is up and running'\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.message).to.eql(\"Customer service is up and running.\");",
+							"});",
+							"",
+							"pm.test(\"Verify Version is 1.4.0.1014-SNAPSHOT\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.version).to.eql(\"1.4.0.1014-SNAPSHOT\");",
+							"});",
+							"",
+							"pm.test(\"Verify Build Date is 2020-04-21T21:02:53.255Z\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.buildDate).to.eql(\"2020-04-21T21:02:53.255Z\");",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url customer}}/",
+					"host": [
+						"{{url customer}}"
+					],
+					"path": [
+						""
+					]
+				},
+				"description": "Execute Customers service Health Check\n\nExpected result\n{\n\"message\": \"Customer service is up and running.\",\n\"version\": \"1.3.1.1015-SNAPSHOT\",\n\"buildDate\": \"2020-03-10T10:42:36.630Z\"\n}"
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}

@@ -1,0 +1,34 @@
+{
+	"id": "da2d7099-3dac-4a6e-bf72-35c29c1df3a8",
+	"name": "SV Dev",
+	"values": [
+		{
+			"key": "url inventory",
+			"value": "https://inventory-apps.azurewebsites.net",
+			"enabled": true
+		},
+		{
+			"key": "url employee",
+			"value": "https://employee-apps.azurewebsites.net",
+			"enabled": true
+		},
+		{
+			"key": "url location",
+			"value": "https://location-apps.azurewebsites.net",
+			"enabled": true
+		},
+		{
+			"key": "url customer",
+			"value": "https://customer-apps.azurewebsites.net/",
+			"enabled": true
+		},
+		{
+			"key": "address",
+			"value": "",
+			"enabled": true
+		}
+	],
+	"_postman_variable_scope": "environment",
+	"_postman_exported_at": "2020-04-23T23:19:06.310Z",
+	"_postman_exported_using": "Postman/7.22.1"
+}
